@@ -1,0 +1,35 @@
+Sat Nov 23 00:51:40 UTC 2024 - running command: lm_eval --model vllm --model_args pretrained=meta-llama/Llama-3.2-1B,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 --tasks meta_pretrain --batch_size auto --output_path eval_results --seed 42 --log_samples --limit 3
+nohup: ignoring input
+2024-11-23:00:51:53,276 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-23:00:52:09,079 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-23:00:52:09,080 ERROR    [__main__.py:354] Tasks were not found: meta_pretrain
+                                               Try `lm-eval --tasks list` for list of available tasks
+Traceback (most recent call last):
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+    sys.exit(cli_evaluate())
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 358, in cli_evaluate
+    raise ValueError(
+ValueError: Tasks not found: meta_pretrain. Try `lm-eval --tasks {list_groups,list_subtasks,list_tags,list}` to list out all available names for task groupings; only (sub)tasks; tags; or all of the above, or pass '--verbosity DEBUG' to troubleshoot task registration issues.
+end: Sat Nov 23 00:52:10 UTC 2024
+Sat Nov 23 00:54:41 UTC 2024 - running command: lm_eval --model vllm --model_args pretrained=meta-llama/Llama-3.2-1B,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 --tasks meta_mmlu --batch_size auto --output_path eval_results --seed 42 --log_samples --limit 3
+nohup: ignoring input
+2024-11-23:00:54:50,051 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-23:00:55:05,800 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-23:00:55:05,801 INFO     [__main__.py:376] Selected Tasks: ['meta_mmlu']
+2024-11-23:00:55:05,808 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-23:00:55:05,808 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+Traceback (most recent call last):
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+    sys.exit(cli_evaluate())
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 382, in cli_evaluate
+    results = evaluator.simple_evaluate(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 204, in simple_evaluate
+    lm = lm_eval.api.registry.get_model(model).create_from_arg_string(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/model.py", line 147, in create_from_arg_string
+    return cls(**args, **args2)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/models/vllm_causallms.py", line 68, in __init__
+    raise ModuleNotFoundError(
+ModuleNotFoundError: attempted to use 'vllm' LM type, but package `vllm` is not installed. Please install vllm via `pip install lm-eval[vllm]` or `pip install -e .[vllm]`
+end: Sat Nov 23 00:55:06 UTC 2024
