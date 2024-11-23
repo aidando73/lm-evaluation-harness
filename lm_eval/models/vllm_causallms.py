@@ -440,7 +440,9 @@ class VLLM(TemplateLM):
                 inputs.append(inp)
                 ctxlens.append(ctxlen)
 
+            # print("Model Inputs: ", inputs)
             outputs = self._model_generate(requests=inputs, generate=False)
+            # print("Model Outputs: ", outputs)
 
             for output, ctxlen, (cache_key, _, _), inp in zip(
                 outputs, ctxlens, chunk, inputs

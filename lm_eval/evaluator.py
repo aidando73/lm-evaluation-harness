@@ -494,6 +494,9 @@ def evaluate(
     # execute each type of request
     for reqtype, reqs in requests.items():
         eval_logger.info(f"Running {reqtype} requests")
+        # print("lm: ", lm)
+        # print("reqtype: ", reqtype)
+        # print("reqs: ", reqs)
         # create `K` copies of each request `req` based off `K = req.repeats`
         cloned_reqs = []
         for req in reqs:
@@ -505,7 +508,7 @@ def evaluate(
 
         # run requests through model
         resps = getattr(lm, reqtype)(cloned_reqs)
-
+        # print("Requests returned from model: ", resps)
         # put responses from model into a list of length K for each request.
         for x, req in zip(resps, cloned_reqs):
             req.resps.append(x)
