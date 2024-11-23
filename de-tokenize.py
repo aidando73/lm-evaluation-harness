@@ -542,12 +542,12 @@ tokens=[
             356,
         ]
 
-tokens = [128000]
+# tokens = [128000]
 
 print(tokenizer.decode(tokens))
 
-# print(tokenizer.encode("A"))
-# print(tokenizer.encode("B"))
-# print(tokenizer.encode("C"))
-# print(tokenizer.encode("D"))
-print(tokenizer.encode(" "))
+# print(tokenizer.encode(" A"))
+# print(tokenizer.encode(" B"))
+# print(tokenizer.encode(" C"))
+# print(tokenizer.encode(" D"))
+# print(tokenizer.encode(" "))

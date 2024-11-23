@@ -480,6 +480,13 @@ class VLLM(TemplateLM):
             is_greedy: bool
                 Whether argmax matches given continuation exactly
         """
+        print("tokens length: ", len(tokens))
+        print("output logprobs length: ", len(outputs.prompt_logprobs))
+        print("ctxlen: ", ctxlen)
+        
+        for token, logprob_dict in zip(tokens, outputs.prompt_logprobs):
+            if logprob_dict is not None:
+                print(f"For token {token}, log_prob: {logprob_dict[token]}")
 
         # The first entry of prompt_logprobs is None because the model has no previous tokens to condition on.
         continuation_logprobs_dicts = outputs.prompt_logprobs

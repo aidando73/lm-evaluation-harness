@@ -23,7 +23,7 @@ pip install -e . && run_nohup lm_eval --model vllm \
   --output_path eval_results \
   --seed 42  \
   --log_samples \
-  --limit 2
+  --limit 3
 ```
 
 ```bash
