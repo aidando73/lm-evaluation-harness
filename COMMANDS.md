@@ -8,6 +8,10 @@ pip install lm-eval[vllm]
 ```
 
 ```bash
+huggingface-cli login
+```
+
+```bash
 pip install -e .
 ```
 
@@ -20,4 +24,11 @@ run_nohup lm_eval --model vllm \
   --seed 42  \
   --log_samples \
   --limit 3
+```
+
+```bash
+cat $(ls -1 $STORAGE_DIR/lm-evaluation-harness/eval_results/meta-llama__Llama-3.2-1B/samples_meta_mmlu* | tail -n 1) \
+  | tail -n 1 \
+  | jq
+
 ```

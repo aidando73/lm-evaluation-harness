@@ -33,3 +33,117 @@ Traceback (most recent call last):
     raise ModuleNotFoundError(
 ModuleNotFoundError: attempted to use 'vllm' LM type, but package `vllm` is not installed. Please install vllm via `pip install lm-eval[vllm]` or `pip install -e .[vllm]`
 end: Sat Nov 23 00:55:06 UTC 2024
+Sat Nov 23 00:58:52 UTC 2024 - running command: lm_eval --model vllm --model_args pretrained=meta-llama/Llama-3.2-1B,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 --tasks meta_mmlu --batch_size auto --output_path eval_results --seed 42 --log_samples --limit 3
+nohup: ignoring input
+2024-11-23:00:59:09,195 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-23:00:59:24,953 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-23:00:59:24,954 INFO     [__main__.py:376] Selected Tasks: ['meta_mmlu']
+2024-11-23:00:59:24,962 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-23:00:59:24,962 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+Traceback (most recent call last):
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/main/sentence_bert_config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+    sys.exit(cli_evaluate())
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 382, in cli_evaluate
+    results = evaluator.simple_evaluate(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 204, in simple_evaluate
+    lm = lm_eval.api.registry.get_model(model).create_from_arg_string(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/model.py", line 147, in create_from_arg_string
+    return cls(**args, **args2)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/models/vllm_causallms.py", line 103, in __init__
+    self.model = LLM(**self.model_args)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/utils.py", line 1028, in inner
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 210, in __init__
+    self.llm_engine = self.engine_class.from_engine_args(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 582, in from_engine_args
+    engine_config = engine_args.create_engine_config()
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/engine/arg_utils.py", line 959, in create_engine_config
+    model_config = self.create_model_config()
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/engine/arg_utils.py", line 891, in create_model_config
+    return ModelConfig(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/config.py", line 214, in __init__
+    self.encoder_config = self._get_encoder_config()
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/config.py", line 287, in _get_encoder_config
+    return get_sentence_transformer_tokenizer_config(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 383, in get_sentence_transformer_tokenizer_config
+    encoder_dict = get_hf_file_to_dict(config_name, model, revision, token)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 263, in get_hf_file_to_dict
+    if file_or_path_exists(model=model,
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/vllm/transformers_utils/config.py", line 91, in file_or_path_exists
+    return file_exists(model, config_name, revision=revision, token=token)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/hf_api.py", line 2907, in file_exists
+    get_hf_file_metadata(url, token=token)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 423, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-674128ed-62a09de82e46e76360a86804;530ef3bc-194c-449e-ae88-d0284b80001b)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/main/sentence_bert_config.json.
+Access to model meta-llama/Llama-3.2-1B is restricted. You must have access to it and be authenticated to access it. Please log in.
+end: Sat Nov 23 00:59:26 UTC 2024
+Sat Nov 23 01:06:26 UTC 2024 - running command: lm_eval --model vllm --model_args pretrained=meta-llama/Llama-3.2-1B,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 --tasks meta_mmlu --batch_size auto --output_path eval_results --seed 42 --log_samples --limit 3
+nohup: ignoring input
+2024-11-23:01:06:39,058 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-23:01:06:54,816 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-23:01:06:54,817 INFO     [__main__.py:376] Selected Tasks: ['meta_mmlu']
+2024-11-23:01:06:54,826 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-23:01:06:54,826 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-23 01:07:04 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+INFO 11-23 01:07:04 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-23 01:07:05 selector.py:135] Using Flash Attention backend.
+INFO 11-23 01:07:06 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B...
+INFO 11-23 01:07:06 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-23 01:07:06 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:15<00:00, 15.19s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:15<00:00, 15.19s/it]
+
+INFO 11-23 01:07:22 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-23 01:07:23 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-23 01:07:23 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-23 01:07:23 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-23 01:07:26 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-23 01:07:26 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-23 01:07:37 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+Generating latest split:   0%|          | 0/14042 [00:00<?, ? examples/s]Generating latest split:   7%|▋         | 1000/14042 [00:00<00:01, 9942.55 examples/s]Generating latest split:  28%|██▊       | 4000/14042 [00:00<00:00, 13961.34 examples/s]Generating latest split:  57%|█████▋    | 8000/14042 [00:00<00:00, 16943.97 examples/s]Generating latest split:  85%|████████▌ | 12000/14042 [00:00<00:00, 20288.47 examples/s]Generating latest split: 100%|██████████| 14042/14042 [00:00<00:00, 19112.19 examples/s]
+2024-11-23:01:07:40,127 WARNING  [task.py:325] [Task: meta_mmlu] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+Map:   0%|          | 0/14042 [00:00<?, ? examples/s]Map:   7%|▋         | 1000/14042 [00:00<00:01, 7849.46 examples/s]Map:  14%|█▍        | 2000/14042 [00:00<00:01, 8695.61 examples/s]Map:  22%|██▏       | 3109/14042 [00:00<00:01, 9685.31 examples/s]Map:  34%|███▎      | 4715/14042 [00:00<00:01, 6334.57 examples/s]Map:  41%|████      | 5749/14042 [00:00<00:01, 7208.37 examples/s]Map:  49%|████▉     | 6872/14042 [00:00<00:00, 8166.95 examples/s]Map:  57%|█████▋    | 7989/14042 [00:00<00:00, 8928.24 examples/s]Map:  66%|██████▋   | 9312/14042 [00:01<00:00, 8887.44 examples/s]Map:  77%|███████▋  | 10820/14042 [00:01<00:00, 9711.80 examples/s]Map:  85%|████████▌ | 12000/14042 [00:01<00:00, 9698.76 examples/s]Map:  93%|█████████▎| 13126/14042 [00:01<00:00, 10092.52 examples/s]Map: 100%|██████████| 14042/14042 [00:01<00:00, 8666.32 examples/s] 
+Map:   0%|          | 0/14042 [00:00<?, ? examples/s]Map:   7%|▋         | 1000/14042 [00:00<00:01, 9414.82 examples/s]Map:  14%|█▍        | 2000/14042 [00:00<00:01, 9476.70 examples/s]Map:  21%|██▏       | 3003/14042 [00:00<00:01, 9720.60 examples/s]Map:  28%|██▊       | 4000/14042 [00:00<00:01, 9466.48 examples/s]Map:  36%|███▌      | 5002/14042 [00:00<00:00, 9656.19 examples/s]Map:  43%|████▎     | 6036/14042 [00:00<00:00, 9881.80 examples/s]Map:  50%|█████     | 7043/14042 [00:00<00:00, 9940.95 examples/s]Map:  62%|██████▏   | 8718/14042 [00:00<00:00, 10163.80 examples/s]Map:  71%|███████   | 10000/14042 [00:01<00:00, 9296.99 examples/s]Map:  79%|███████▊  | 11024/14042 [00:01<00:00, 9531.66 examples/s]Map:  86%|████████▌ | 12082/14042 [00:01<00:00, 9806.83 examples/s]Map:  97%|█████████▋| 13673/14042 [00:01<00:00, 10077.90 examples/s]Map: 100%|██████████| 14042/14042 [00:01<00:00, 9064.09 examples/s] 
+2024-11-23:01:07:43,315 WARNING  [task.py:325] [Task: meta_mmlu] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-23:01:07:45,118 INFO     [task.py:415] Building contexts for meta_mmlu on rank 0...
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 27594.11it/s]
+2024-11-23:01:07:45,133 INFO     [evaluator.py:496] Running loglikelihood requests
+Running loglikelihood requests:   0%|          | 0/12 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/12 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   8%|▊         | 1/12 [00:00<00:03,  3.40it/s, est. speed input: 1796.04 toks/s, output: 3.40 toks/s][AProcessed prompts: 100%|██████████| 12/12 [00:00<00:00, 40.34it/s, est. speed input: 20464.71 toks/s, output: 40.35 toks/s]
+Running loglikelihood requests:   8%|▊         | 1/12 [00:00<00:03,  3.30it/s]Running loglikelihood requests: 100%|██████████| 12/12 [00:00<00:00, 38.85it/s]
+2024-11-23:01:07:47,685 INFO     [evaluation_tracker.py:206] Saving results aggregated
+2024-11-23:01:07:47,702 INFO     [evaluation_tracker.py:287] Saving per-sample results for: meta_mmlu
+vllm (pretrained=meta-llama/Llama-3.2-1B,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42), gen_kwargs: (None), limit: 3.0, num_fewshot: None, batch_size: auto
+|  Tasks  |Version|Filter|n-shot| Metric |   |Value|   |Stderr|
+|---------|------:|------|-----:|--------|---|----:|---|-----:|
+|meta_mmlu|      1|none  |     0|acc     |↑  |    0|±  |     0|
+|         |       |none  |     0|acc_norm|↑  |    0|±  |     0|
+
+[rank0]:[W1123 01:07:48.824108486 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+end: Sat Nov 23 01:07:50 UTC 2024
