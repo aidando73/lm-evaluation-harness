@@ -20,21 +20,21 @@ python join.py
 
 pip install lm-eval[math,ifeval,sentencepiece,vllm]==0.4.3
 
-pip install -e . && lm_eval --model vllm \
+pip install -e . && track lm_eval --model vllm \
   --model_args pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 \
   --tasks meta_math \
   --batch_size auto \
   --output_path eval_results \
   --seed 42 \
   --limit 100 \
-  --log_samples 2>&1 | tee -a log-$(hostname)
+  --log_samples
 
 
-pip install -e . && lm_eval --model vllm \
-  --model_args pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 \
+pip install -e . && track lm_eval --model vllm \
+  --model_args pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.8,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 \
   --tasks meta_math \
   --batch_size auto \
   --output_path eval_results \
   --seed 42 \
-  --log_samples 2>&1 | tee -a log-$(hostname)
+  --log_samples
 ```
