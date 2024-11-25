@@ -51,3 +51,68 @@ INFO 11-25 09:56:14 model_runner.py:1518] Graph capturing finished in 11 secs, t
 [rank0]:     return super().__getitem__(k)
 [rank0]: KeyError: 'train'
 [rank0]:[W1125 09:56:18.704659327 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:09:58:22,696 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:09:58:39,269 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:09:58:39,269 INFO     [__main__.py:376] Selected Tasks: ['meta_math']
+2024-11-25:09:58:39,278 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:09:58:39,278 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 09:58:48 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+INFO 11-25 09:58:48 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 09:58:49 selector.py:135] Using Flash Attention backend.
+INFO 11-25 09:58:49 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 09:58:49 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 09:58:49 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.85s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.85s/it]
+
+INFO 11-25 09:58:51 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 09:58:52 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 09:58:52 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 09:58:52 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 09:58:55 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 09:58:55 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 09:59:07 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+2024-11-25:09:59:08,794 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+Map:   0%|          | 0/5000 [00:00<?, ? examples/s]Map:   0%|          | 0/5000 [00:00<?, ? examples/s]
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+[rank0]:     sys.exit(cli_evaluate())
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 382, in cli_evaluate
+[rank0]:     results = evaluator.simple_evaluate(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 235, in simple_evaluate
+[rank0]:     task_dict = get_task_dict(tasks, task_manager)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 618, in get_task_dict
+[rank0]:     task_name_from_string_dict = task_manager.load_task_or_group(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 414, in load_task_or_group
+[rank0]:     collections.ChainMap(*map(self._load_individual_task_or_group, task_list))
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 314, in _load_individual_task_or_group
+[rank0]:     return _load_task(task_config, task=name_or_config)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 280, in _load_task
+[rank0]:     task_object = ConfigurableTask(config=config)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 847, in __init__
+[rank0]:     if self.fewshot_docs() is not None:
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 996, in fewshot_docs
+[rank0]:     return super().fewshot_docs()
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 329, in fewshot_docs
+[rank0]:     return self.test_docs()
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 969, in test_docs
+[rank0]:     return self.config.process_docs(self.dataset[self.config.test_split])
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/meta_math/utils.py", line 35, in process_docs
+[rank0]:     return dataset.map(_process_doc)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 560, in wrapper
+[rank0]:     out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3055, in map
+[rank0]:     for rank, done, content in Dataset._map_single(**dataset_kwargs):
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3428, in _map_single
+[rank0]:     example = apply_function_on_filtered_inputs(example, i, offset=offset)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3320, in apply_function_on_filtered_inputs
+[rank0]:     processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/meta_math/utils.py", line 30, in _process_doc
+[rank0]:     remove_boxed(last_boxed_only_string(doc["solution"]))
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/formatting/formatting.py", line 277, in __getitem__
+[rank0]:     value = self.data[key]
+[rank0]: KeyError: 'solution'
+[rank0]:[W1125 09:59:09.167139580 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
