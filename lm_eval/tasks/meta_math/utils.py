@@ -37,6 +37,7 @@ def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
 
 def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
     print("input_question: ", doc["input_question"])
+    print("result: ", results[0])
     candidates = results[0]
     last_boxed_string = last_boxed_only_string(candidates)
     if not last_boxed_string:
