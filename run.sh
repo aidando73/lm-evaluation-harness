@@ -18,5 +18,5 @@ pip install -e . && lm_eval --model vllm \
   --output_path eval_results \
   --include_path /home/ubuntu/1xa100-2/llama-recipes/tools/benchmarks/llm_eval_harness/meta_eval/work_dir \
   --seed 42 \
-  --limit 1 \
+  --limit 100 \
   --log_samples 2>&1 | tee -a log-141-148-201-82
