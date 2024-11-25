@@ -38,3 +38,85 @@ vllm (pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=a
 |meta_gpqa|      1|strict-match|     0|exact_match|↑  |    0|±  |   N/A|
 
 [rank0]:[W1125 07:59:17.091328764 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:08:00:14,723 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:08:00:14,723 INFO     [__main__.py:303] Including path: /home/ubuntu/1xa100-2/llama-recipes/tools/benchmarks/llm_eval_harness/meta_eval/work_dir
+2024-11-25:08:00:30,401 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:08:00:30,402 INFO     [__main__.py:376] Selected Tasks: ['meta_gpqa']
+2024-11-25:08:00:30,413 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:08:00:30,414 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 08:00:41 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+INFO 11-25 08:00:41 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 08:00:42 selector.py:135] Using Flash Attention backend.
+INFO 11-25 08:00:42 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 08:00:43 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 08:00:43 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.89s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.89s/it]
+
+INFO 11-25 08:00:46 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 08:00:46 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 08:00:46 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 08:00:46 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 08:00:50 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 08:00:50 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 08:01:01 model_runner.py:1518] Graph capturing finished in 12 secs, took 0.14 GiB
+2024-11-25:08:01:05,899 WARNING  [task.py:325] [Task: meta_gpqa] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:08:01:05,909 WARNING  [task.py:325] [Task: meta_gpqa] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:08:01:05,973 INFO     [task.py:415] Building contexts for meta_gpqa on rank 0...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 63338.93it/s]
+2024-11-25:08:01:05,994 INFO     [evaluator.py:496] Running generate_until requests
+Running generate_until requests:   0%|          | 0/100 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   1%|          | 1/100 [00:00<00:35,  2.78it/s, est. speed input: 2022.78 toks/s, output: 8.35 toks/s][AProcessed prompts: 100%|██████████| 100/100 [00:00<00:00, 276.11it/s, est. speed input: 70936.37 toks/s, output: 828.44 toks/s]
+Running generate_until requests:   1%|          | 1/100 [00:00<00:37,  2.65it/s]Running generate_until requests: 100%|██████████| 100/100 [00:00<00:00, 264.50it/s]
+2024-11-25:08:01:08,748 INFO     [evaluation_tracker.py:206] Saving results aggregated
+2024-11-25:08:01:08,754 INFO     [evaluation_tracker.py:287] Saving per-sample results for: meta_gpqa
+[' C.', ' B.', ' D.', ' D.', ' B.', ' B.', ' C.', ' C.', ' A.', ' D.', ' B.', ' B.', ' B.', ' C.', ' C.', ' D.', ' C.', ' A.', ' C.', ' C.', ' D.', ' B.', ' C.', ' D.', ' B.', ' A.', ' C.', ' B.', ' A.', ' B.', ' C.', ' B.', ' B.', ' B.', ' D.', ' D.', ' C.', ' D.', ' B.', ' D.', ' C.', ' B.', ' C.', ' A.', ' A.', ' C.', ' C.', ' D.', ' D.', ' B.', ' A.', ' A.', ' C.', ' B.', ' B.', ' B.', ' B.', ' B.', ' B.', ' B.', ' A.', ' D.', ' B.', ' D.', ' D.', ' C.', ' C.', ' B.', ' A.', ' C.', ' C.', ' D.', ' B.', ' C.', ' D.', ' C.', ' B.', ' D.', ' C.', ' B.', ' C.', ' B.', ' D.', ' D.', ' C.', ' B.', ' D.', ' D.', ' D.', ' C.', ' A.', ' B.', ' D.', ' A.', ' D.', ' C.', ' C.', ' B.', ' A.', ' A.']
+vllm (pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42), gen_kwargs: (None), limit: 100.0, num_fewshot: None, batch_size: auto
+|  Tasks  |Version|   Filter   |n-shot|  Metric   |   |Value|   |Stderr|
+|---------|------:|------------|-----:|-----------|---|----:|---|-----:|
+|meta_gpqa|      1|strict-match|     0|exact_match|↑  |  0.2|±  |0.0402|
+
+[rank0]:[W1125 08:01:09.672458434 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:08:02:18,454 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:08:02:18,454 INFO     [__main__.py:303] Including path: /home/ubuntu/1xa100-2/llama-recipes/tools/benchmarks/llm_eval_harness/meta_eval/work_dir
+2024-11-25:08:02:34,096 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:08:02:34,097 INFO     [__main__.py:376] Selected Tasks: ['meta_gpqa']
+2024-11-25:08:02:34,103 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:08:02:34,104 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 08:02:44 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+INFO 11-25 08:02:44 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 08:02:46 selector.py:135] Using Flash Attention backend.
+INFO 11-25 08:02:46 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 08:02:47 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 08:02:47 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.92s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.92s/it]
+
+INFO 11-25 08:02:49 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 08:02:50 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 08:02:50 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 08:02:50 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 08:02:53 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 08:02:53 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 08:03:05 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+2024-11-25:08:03:09,260 WARNING  [task.py:325] [Task: meta_gpqa] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:08:03:09,270 WARNING  [task.py:325] [Task: meta_gpqa] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:08:03:09,334 INFO     [task.py:415] Building contexts for meta_gpqa on rank 0...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 61221.78it/s]
+2024-11-25:08:03:09,355 INFO     [evaluator.py:496] Running generate_until requests
+Running generate_until requests:   0%|          | 0/100 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   1%|          | 1/100 [00:00<00:34,  2.84it/s, est. speed input: 2062.93 toks/s, output: 8.51 toks/s][AProcessed prompts: 100%|██████████| 100/100 [00:00<00:00, 281.63it/s, est. speed input: 72353.90 toks/s, output: 845.00 toks/s]
+Running generate_until requests:   1%|          | 1/100 [00:00<00:36,  2.70it/s]Running generate_until requests: 100%|██████████| 100/100 [00:00<00:00, 269.63it/s]
+2024-11-25:08:03:12,440 INFO     [evaluation_tracker.py:206] Saving results aggregated
+2024-11-25:08:03:12,448 INFO     [evaluation_tracker.py:287] Saving per-sample results for: meta_gpqa
+[' C.', ' B.', ' D.', ' D.', ' B.', ' B.', ' C.', ' C.', ' A.', ' D.', ' B.', ' B.', ' B.', ' C.', ' C.', ' D.', ' C.', ' A.', ' C.', ' C.', ' D.', ' B.', ' C.', ' D.', ' B.', ' A.', ' C.', ' B.', ' A.', ' B.', ' C.', ' B.', ' B.', ' B.', ' D.', ' D.', ' C.', ' D.', ' B.', ' D.', ' C.', ' B.', ' C.', ' A.', ' A.', ' C.', ' C.', ' D.', ' D.', ' B.', ' A.', ' A.', ' C.', ' B.', ' B.', ' B.', ' B.', ' B.', ' B.', ' B.', ' A.', ' D.', ' B.', ' D.', ' D.', ' C.', ' C.', ' B.', ' A.', ' C.', ' C.', ' D.', ' B.', ' C.', ' D.', ' C.', ' B.', ' D.', ' C.', ' B.', ' C.', ' B.', ' D.', ' D.', ' C.', ' B.', ' D.', ' D.', ' D.', ' C.', ' A.', ' B.', ' D.', ' A.', ' D.', ' C.', ' C.', ' B.', ' A.', ' A.']
+vllm (pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42), gen_kwargs: (None), limit: 100.0, num_fewshot: None, batch_size: auto
+|  Tasks  |Version|   Filter   |n-shot|  Metric   |   |Value|   |Stderr|
+|---------|------:|------------|-----:|-----------|---|----:|---|-----:|
+|meta_gpqa|      1|strict-match|     0|exact_match|↑  |  0.2|±  |0.0402|
+
+[rank0]:[W1125 08:03:13.394009742 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
