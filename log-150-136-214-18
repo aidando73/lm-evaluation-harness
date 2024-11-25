@@ -116,3 +116,213 @@ INFO 11-25 09:59:07 model_runner.py:1518] Graph capturing finished in 11 secs, t
 [rank0]:     value = self.data[key]
 [rank0]: KeyError: 'solution'
 [rank0]:[W1125 09:59:09.167139580 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:10:15:56,124 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:10:16:12,259 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:10:16:12,259 INFO     [__main__.py:376] Selected Tasks: ['meta_math']
+2024-11-25:10:16:12,267 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:10:16:12,267 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 10:16:21 config.py:350] This model supports multiple tasks: {'embedding', 'generate'}. Defaulting to 'generate'.
+INFO 11-25 10:16:21 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 10:16:22 selector.py:135] Using Flash Attention backend.
+INFO 11-25 10:16:23 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 10:16:23 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 10:16:23 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.88s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.88s/it]
+
+INFO 11-25 10:16:25 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 10:16:26 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 10:16:26 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 10:16:26 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 10:16:29 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 10:16:29 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 10:16:40 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 4000 examples [00:00, 30948.05 examples/s]Generating train split: 5000 examples [00:00, 34257.56 examples/s]
+2024-11-25:10:16:42,459 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+[rank0]:     sys.exit(cli_evaluate())
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 382, in cli_evaluate
+[rank0]:     results = evaluator.simple_evaluate(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 235, in simple_evaluate
+[rank0]:     task_dict = get_task_dict(tasks, task_manager)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 618, in get_task_dict
+[rank0]:     task_name_from_string_dict = task_manager.load_task_or_group(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 414, in load_task_or_group
+[rank0]:     collections.ChainMap(*map(self._load_individual_task_or_group, task_list))
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 314, in _load_individual_task_or_group
+[rank0]:     return _load_task(task_config, task=name_or_config)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/__init__.py", line 280, in _load_task
+[rank0]:     task_object = ConfigurableTask(config=config)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 847, in __init__
+[rank0]:     if self.fewshot_docs() is not None:
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 996, in fewshot_docs
+[rank0]:     return super().fewshot_docs()
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 329, in fewshot_docs
+[rank0]:     return self.test_docs()
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 969, in test_docs
+[rank0]:     return self.config.process_docs(self.dataset[self.config.test_split])
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/datasets/dataset_dict.py", line 72, in __getitem__
+[rank0]:     return super().__getitem__(k)
+[rank0]: KeyError: 'latest'
+[rank0]:[W1125 10:16:43.871843703 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:10:17:53,747 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:10:18:10,024 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:10:18:10,025 INFO     [__main__.py:376] Selected Tasks: ['meta_math']
+2024-11-25:10:18:10,033 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:10:18:10,033 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 10:18:19 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+INFO 11-25 10:18:19 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 10:18:20 selector.py:135] Using Flash Attention backend.
+INFO 11-25 10:18:20 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 10:18:20 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 10:18:20 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.85s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.85s/it]
+
+INFO 11-25 10:18:23 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 10:18:23 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 10:18:23 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 10:18:23 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 10:18:26 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 10:18:26 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 10:18:38 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+2024-11-25:10:18:39,558 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+Map:   0%|          | 0/5000 [00:00<?, ? examples/s]Map:  17%|█▋        | 857/5000 [00:00<00:00, 8487.71 examples/s]Map:  38%|███▊      | 1921/5000 [00:00<00:00, 3774.49 examples/s]Map:  52%|█████▏    | 2593/5000 [00:00<00:00, 4494.97 examples/s]Map:  69%|██████▉   | 3470/5000 [00:00<00:00, 5360.30 examples/s]Map:  83%|████████▎ | 4172/5000 [00:00<00:00, 5793.13 examples/s]Map: 100%|██████████| 5000/5000 [00:00<00:00, 6279.46 examples/s]Map: 100%|██████████| 5000/5000 [00:00<00:00, 5448.35 examples/s]
+2024-11-25:10:18:40,483 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:10:18:40,933 INFO     [task.py:415] Building contexts for meta_math on rank 0...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 60541.34it/s]
+2024-11-25:10:18:40,952 INFO     [evaluator.py:496] Running generate_until requests
+Running generate_until requests:   0%|          | 0/100 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][AWARNING 11-25 10:18:43 scheduler.py:1481] Sequence group 97 is preempted by PreemptionMode.RECOMPUTE mode because there is not enough KV cache space. This can affect the end-to-end performance. Increase gpu_memory_utilization or tensor_parallel_size to provide more KV cache memory. total_num_cumulative_preemption=1
+
+Processed prompts:   1%|          | 1/100 [00:03<05:51,  3.55s/it, est. speed input: 524.63 toks/s, output: 24.51 toks/s][A
+Processed prompts:   2%|▏         | 2/100 [00:03<02:40,  1.64s/it, est. speed input: 972.89 toks/s, output: 49.85 toks/s][A
+Processed prompts:   3%|▎         | 3/100 [00:03<01:31,  1.06it/s, est. speed input: 1414.40 toks/s, output: 76.24 toks/s][A
+Processed prompts:   6%|▌         | 6/100 [00:04<00:34,  2.73it/s, est. speed input: 2679.23 toks/s, output: 155.36 toks/s][A
+Processed prompts:   7%|▋         | 7/100 [00:04<00:31,  2.94it/s, est. speed input: 2943.72 toks/s, output: 176.53 toks/s][A
+Processed prompts:   9%|▉         | 9/100 [00:04<00:23,  3.83it/s, est. speed input: 3562.70 toks/s, output: 226.20 toks/s][A
+Processed prompts:  11%|█         | 11/100 [00:04<00:18,  4.93it/s, est. speed input: 4172.04 toks/s, output: 275.78 toks/s][A
+Processed prompts:  13%|█▎        | 13/100 [00:05<00:14,  6.10it/s, est. speed input: 4755.40 toks/s, output: 331.47 toks/s][A
+Processed prompts:  18%|█▊        | 18/100 [00:05<00:07, 11.63it/s, est. speed input: 6454.51 toks/s, output: 481.05 toks/s][A
+Processed prompts:  23%|██▎       | 23/100 [00:05<00:04, 17.00it/s, est. speed input: 8108.20 toks/s, output: 642.40 toks/s][A
+Processed prompts:  28%|██▊       | 28/100 [00:05<00:03, 21.18it/s, est. speed input: 9611.14 toks/s, output: 799.73 toks/s][A
+Processed prompts:  33%|███▎      | 33/100 [00:05<00:02, 26.04it/s, est. speed input: 11096.77 toks/s, output: 956.33 toks/s][A
+Processed prompts:  39%|███▉      | 39/100 [00:05<00:01, 32.93it/s, est. speed input: 12875.74 toks/s, output: 1157.47 toks/s][A
+Processed prompts:  44%|████▍     | 44/100 [00:05<00:01, 30.07it/s, est. speed input: 14039.78 toks/s, output: 1307.14 toks/s][A
+Processed prompts:  48%|████▊     | 48/100 [00:06<00:02, 25.71it/s, est. speed input: 14785.02 toks/s, output: 1417.15 toks/s][A
+Processed prompts:  55%|█████▌    | 55/100 [00:06<00:01, 33.78it/s, est. speed input: 16634.26 toks/s, output: 1677.35 toks/s][A
+Processed prompts:  60%|██████    | 60/100 [00:06<00:01, 35.30it/s, est. speed input: 17830.00 toks/s, output: 1830.74 toks/s][A
+Processed prompts:  65%|██████▌   | 65/100 [00:06<00:00, 36.86it/s, est. speed input: 18953.51 toks/s, output: 1995.21 toks/s][A
+Processed prompts:  70%|███████   | 70/100 [00:06<00:00, 36.36it/s, est. speed input: 19999.10 toks/s, output: 2152.75 toks/s][A
+Processed prompts:  74%|███████▍  | 74/100 [00:06<00:00, 28.84it/s, est. speed input: 20479.95 toks/s, output: 2269.89 toks/s][A
+Processed prompts:  78%|███████▊  | 78/100 [00:06<00:00, 28.32it/s, est. speed input: 21124.24 toks/s, output: 2416.10 toks/s][A
+Processed prompts:  82%|████████▏ | 82/100 [00:07<00:00, 26.73it/s, est. speed input: 21687.60 toks/s, output: 2562.08 toks/s][A
+Processed prompts:  85%|████████▌ | 85/100 [00:07<00:00, 25.53it/s, est. speed input: 22081.47 toks/s, output: 2673.60 toks/s][A
+Processed prompts:  88%|████████▊ | 88/100 [00:07<00:00, 24.71it/s, est. speed input: 22476.67 toks/s, output: 2787.59 toks/s][A
+Processed prompts:  91%|█████████ | 91/100 [00:07<00:00, 19.15it/s, est. speed input: 22462.03 toks/s, output: 2867.69 toks/s][A
+Processed prompts:  94%|█████████▍| 94/100 [00:08<00:00, 13.63it/s, est. speed input: 22112.39 toks/s, output: 2916.37 toks/s][A
+Processed prompts:  96%|█████████▌| 96/100 [00:08<00:00, 11.46it/s, est. speed input: 21844.14 toks/s, output: 2958.33 toks/s][A
+Processed prompts:  98%|█████████▊| 98/100 [00:10<00:00,  3.26it/s, est. speed input: 17865.22 toks/s, output: 2534.16 toks/s][A
+Processed prompts: 100%|██████████| 100/100 [00:26<00:00,  2.24s/it, est. speed input: 7105.03 toks/s, output: 1231.66 toks/s][AProcessed prompts: 100%|██████████| 100/100 [00:26<00:00,  3.72it/s, est. speed input: 7105.03 toks/s, output: 1231.66 toks/s]
+Running generate_until requests:   1%|          | 1/100 [00:26<44:25, 26.92s/it]Running generate_until requests: 100%|██████████| 100/100 [00:26<00:00,  3.71it/s]
+/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/sympy/parsing/latex/_parse_latex_antlr.py:23: UserWarning: antlr4.error.ErrorListener module is not installed
+  ErrorListener = import_module('antlr4.error.ErrorListener',
+2024-11-25:10:19:08,745 ERROR    [utils.py:154] LaTeX parsing requires the antlr4 Python package, provided by pip (antlr4-python3-runtime) or conda (antlr-python-runtime), version 4.11
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/bin/lm_eval", line 8, in <module>
+[rank0]:     sys.exit(cli_evaluate())
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/__main__.py", line 382, in cli_evaluate
+[rank0]:     results = evaluator.simple_evaluate(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 303, in simple_evaluate
+[rank0]:     results = evaluate(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/utils.py", line 397, in _wrapper
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/evaluator.py", line 541, in evaluate
+[rank0]:     metrics = task.process_results(
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/api/task.py", line 1382, in process_results
+[rank0]:     return self.config.process_results(doc, results)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/meta_math/utils.py", line 47, in process_results
+[rank0]:     if answer.strip() == doc["answer"].strip() or is_equiv(answer, doc["answer"]):
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/lm_eval/tasks/meta_math/utils.py", line 125, in is_equiv
+[rank0]:     parsed_x1 = parse_latex(x1)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/sympy/parsing/latex/__init__.py", line 61, in parse_latex
+[rank0]:     return _latex.parse_latex(s, strict)
+[rank0]:   File "/home/ubuntu/us-east-1/lm-evaluation-harness/.venv/lib/python3.10/site-packages/sympy/parsing/latex/_parse_latex_antlr.py", line 66, in parse_latex
+[rank0]:     raise ImportError("LaTeX parsing requires the antlr4 Python package,"
+[rank0]: ImportError: LaTeX parsing requires the antlr4 Python package, provided by pip (antlr4-python3-runtime) or conda (antlr-python-runtime), version 4.11
+[rank0]:[W1125 10:19:09.209755116 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+2024-11-25:10:25:29,557 INFO     [__main__.py:279] Verbosity set to INFO
+2024-11-25:10:25:46,314 WARNING  [__main__.py:312]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2024-11-25:10:25:46,315 INFO     [__main__.py:376] Selected Tasks: ['meta_math']
+2024-11-25:10:25:46,324 INFO     [evaluator.py:164] Setting random seed to 42 | Setting numpy seed to 42 | Setting torch manual seed to 42 | Setting fewshot manual seed to 42
+2024-11-25:10:25:46,324 INFO     [evaluator.py:201] Initializing vllm model, with arguments: {'pretrained': 'meta-llama/Llama-3.2-1B-Instruct', 'tensor_parallel_size': 1, 'dtype': 'auto', 'gpu_memory_utilization': 0.25, 'data_parallel_size': 1, 'max_model_len': 8192, 'add_bos_token': True, 'seed': 42}
+INFO 11-25 10:25:55 config.py:350] This model supports multiple tasks: {'embedding', 'generate'}. Defaulting to 'generate'.
+INFO 11-25 10:25:55 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='meta-llama/Llama-3.2-1B-Instruct', speculative_config=None, tokenizer='meta-llama/Llama-3.2-1B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=42, served_model_name=meta-llama/Llama-3.2-1B-Instruct, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=False, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+INFO 11-25 10:25:56 selector.py:135] Using Flash Attention backend.
+INFO 11-25 10:25:56 model_runner.py:1072] Starting to load model meta-llama/Llama-3.2-1B-Instruct...
+INFO 11-25 10:25:56 weight_utils.py:243] Using model weights format ['*.safetensors']
+INFO 11-25 10:25:56 weight_utils.py:288] No model.safetensors.index.json found in remote.
+Loading safetensors checkpoint shards:   0% Completed | 0/1 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.80s/it]
+Loading safetensors checkpoint shards: 100% Completed | 1/1 [00:01<00:00,  1.80s/it]
+
+INFO 11-25 10:25:59 model_runner.py:1077] Loading model weights took 2.3185 GB
+INFO 11-25 10:25:59 worker.py:232] Memory profiling results: total_gpu_memory=39.38GiB initial_memory_usage=2.82GiB peak_torch_memory=3.52GiB memory_usage_post_profile=2.84GiB non_torch_memory=0.51GiB kv_cache_size=5.81GiB gpu_memory_utilization=0.25
+INFO 11-25 10:25:59 gpu_executor.py:113] # GPU blocks: 11900, # CPU blocks: 8192
+INFO 11-25 10:25:59 gpu_executor.py:117] Maximum concurrency for 8192 tokens per request: 23.24x
+INFO 11-25 10:26:03 model_runner.py:1400] Capturing cudagraphs for decoding. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 11-25 10:26:03 model_runner.py:1404] If out-of-memory error occurs during cudagraph capture, consider decreasing `gpu_memory_utilization` or switching to eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 11-25 10:26:14 model_runner.py:1518] Graph capturing finished in 11 secs, took 0.14 GiB
+2024-11-25:10:26:15,598 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:10:26:15,607 WARNING  [task.py:325] [Task: meta_math] has_training_docs and has_validation_docs are False, using test_docs as fewshot_docs but this is not recommended.
+2024-11-25:10:26:16,268 INFO     [task.py:415] Building contexts for meta_math on rank 0...
+  0%|          | 0/100 [00:00<?, ?it/s]100%|██████████| 100/100 [00:00<00:00, 61293.35it/s]
+2024-11-25:10:26:16,287 INFO     [evaluator.py:496] Running generate_until requests
+Running generate_until requests:   0%|          | 0/100 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/100 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][AWARNING 11-25 10:26:19 scheduler.py:1481] Sequence group 97 is preempted by PreemptionMode.RECOMPUTE mode because there is not enough KV cache space. This can affect the end-to-end performance. Increase gpu_memory_utilization or tensor_parallel_size to provide more KV cache memory. total_num_cumulative_preemption=1
+
+Processed prompts:   1%|          | 1/100 [00:03<05:49,  3.53s/it, est. speed input: 527.37 toks/s, output: 24.64 toks/s][A
+Processed prompts:   2%|▏         | 2/100 [00:03<02:39,  1.63s/it, est. speed input: 977.81 toks/s, output: 50.10 toks/s][A
+Processed prompts:   3%|▎         | 3/100 [00:03<01:30,  1.07it/s, est. speed input: 1421.42 toks/s, output: 76.61 toks/s][A
+Processed prompts:   6%|▌         | 6/100 [00:04<00:34,  2.75it/s, est. speed input: 2692.61 toks/s, output: 156.14 toks/s][A
+Processed prompts:   7%|▋         | 7/100 [00:04<00:31,  2.95it/s, est. speed input: 2957.33 toks/s, output: 177.34 toks/s][A
+Processed prompts:   9%|▉         | 9/100 [00:04<00:23,  3.84it/s, est. speed input: 3577.73 toks/s, output: 227.15 toks/s][A
+Processed prompts:  11%|█         | 11/100 [00:04<00:18,  4.94it/s, est. speed input: 4188.28 toks/s, output: 276.86 toks/s][A
+Processed prompts:  13%|█▎        | 13/100 [00:05<00:14,  6.11it/s, est. speed input: 4773.17 toks/s, output: 332.70 toks/s][A
+Processed prompts:  18%|█▊        | 18/100 [00:05<00:07, 11.64it/s, est. speed input: 6478.00 toks/s, output: 482.80 toks/s][A
+Processed prompts:  23%|██▎       | 23/100 [00:05<00:04, 17.01it/s, est. speed input: 8136.74 toks/s, output: 644.66 toks/s][A
+Processed prompts:  28%|██▊       | 28/100 [00:05<00:03, 21.18it/s, est. speed input: 9643.44 toks/s, output: 802.41 toks/s][A
+Processed prompts:  33%|███▎      | 33/100 [00:05<00:02, 26.01it/s, est. speed input: 11132.47 toks/s, output: 959.40 toks/s][A
+Processed prompts:  39%|███▉      | 39/100 [00:05<00:01, 32.89it/s, est. speed input: 12915.79 toks/s, output: 1161.07 toks/s][A
+Processed prompts:  44%|████▍     | 44/100 [00:05<00:01, 30.02it/s, est. speed input: 14080.90 toks/s, output: 1310.97 toks/s][A
+Processed prompts:  48%|████▊     | 48/100 [00:06<00:02, 25.65it/s, est. speed input: 14825.09 toks/s, output: 1420.99 toks/s][A
+Processed prompts:  55%|█████▌    | 55/100 [00:06<00:01, 33.71it/s, est. speed input: 16677.87 toks/s, output: 1681.75 toks/s][A
+Processed prompts:  60%|██████    | 60/100 [00:06<00:01, 35.46it/s, est. speed input: 17884.40 toks/s, output: 1836.33 toks/s][A
+Processed prompts:  65%|██████▌   | 65/100 [00:06<00:00, 36.98it/s, est. speed input: 19010.36 toks/s, output: 2001.19 toks/s][A
+Processed prompts:  70%|███████   | 70/100 [00:06<00:00, 36.42it/s, est. speed input: 20056.53 toks/s, output: 2158.93 toks/s][A
+Processed prompts:  74%|███████▍  | 74/100 [00:06<00:00, 28.83it/s, est. speed input: 20534.51 toks/s, output: 2275.94 toks/s][A
+Processed prompts:  78%|███████▊  | 78/100 [00:06<00:00, 28.29it/s, est. speed input: 21178.18 toks/s, output: 2422.27 toks/s][A
+Processed prompts:  82%|████████▏ | 82/100 [00:07<00:00, 26.69it/s, est. speed input: 21740.67 toks/s, output: 2568.35 toks/s][A
+Processed prompts:  85%|████████▌ | 85/100 [00:07<00:00, 25.48it/s, est. speed input: 22133.14 toks/s, output: 2679.86 toks/s][A
+Processed prompts:  88%|████████▊ | 88/100 [00:07<00:00, 24.68it/s, est. speed input: 22528.21 toks/s, output: 2793.99 toks/s][A
+Processed prompts:  91%|█████████ | 91/100 [00:07<00:00, 19.09it/s, est. speed input: 22508.44 toks/s, output: 2873.62 toks/s][A
+Processed prompts:  94%|█████████▍| 94/100 [00:08<00:00, 13.60it/s, est. speed input: 22152.66 toks/s, output: 2921.69 toks/s][A
+Processed prompts:  96%|█████████▌| 96/100 [00:08<00:00, 11.43it/s, est. speed input: 21880.96 toks/s, output: 2963.32 toks/s][A
+Processed prompts:  98%|█████████▊| 98/100 [00:10<00:00,  3.25it/s, est. speed input: 17878.19 toks/s, output: 2536.00 toks/s][A
+Processed prompts: 100%|██████████| 100/100 [00:26<00:00,  2.24s/it, est. speed input: 7088.47 toks/s, output: 1228.79 toks/s][AProcessed prompts: 100%|██████████| 100/100 [00:26<00:00,  3.71it/s, est. speed input: 7088.47 toks/s, output: 1228.79 toks/s]
+Running generate_until requests:   1%|          | 1/100 [00:26<44:31, 26.98s/it]Running generate_until requests: 100%|██████████| 100/100 [00:26<00:00,  3.71it/s]
+2024-11-25:10:26:47,260 INFO     [evaluation_tracker.py:206] Saving results aggregated
+2024-11-25:10:26:47,273 INFO     [evaluation_tracker.py:287] Saving per-sample results for: meta_math
+vllm (pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42), gen_kwargs: (None), limit: 100.0, num_fewshot: None, batch_size: auto
+|  Tasks  |Version|Filter|n-shot|  Metric   |   |Value|   |Stderr|
+|---------|------:|------|-----:|-----------|---|----:|---|-----:|
+|meta_math|      1|none  |     0|exact_match|↑  | 0.45|±  |  0.05|
+
+[rank0]:[W1125 10:26:49.779316200 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())

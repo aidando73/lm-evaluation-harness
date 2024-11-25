@@ -13,7 +13,9 @@ lm_eval --model hf \
   --batch_size 8 \
   2>&1 | tee -a logs
 
-pip install -e .[vllm]
+python join.py
+
+pip install lm-eval[math,ifeval,sentencepiece,vllm]==0.4.3
 
 pip install -e . && lm_eval --model vllm \
   --model_args pretrained=meta-llama/Llama-3.2-1B-Instruct,tensor_parallel_size=1,dtype=auto,gpu_memory_utilization=0.25,data_parallel_size=1,max_model_len=8192,add_bos_token=True,seed=42 \
