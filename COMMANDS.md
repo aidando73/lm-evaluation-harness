@@ -15,6 +15,7 @@ lm_eval --model hf \
   --batch_size 8 \
   2>&1 | tee -a logs
 
+pip install datasets
 python join.py
 
 pip install lm-eval[math,ifeval,sentencepiece,vllm]==0.4.3
