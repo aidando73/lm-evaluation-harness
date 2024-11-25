@@ -89,6 +89,7 @@ def last_boxed_only_string(string: str) -> Optional[str]:
 def remove_boxed(s: str) -> str:
     if "\\boxed " in s:
         left = "\\boxed "
+        print("boxed: ", s)
         assert s[: len(left)] == left
         return s[len(left) :]
 
